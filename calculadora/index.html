@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>majo calculadora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    .form-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-size: 12px;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+    input, select, button {
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+    #resultado {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>MAJO CASIO</h1>
+
+  <div class="form-container">
+    <div class="field">
+      <label for="num1">ingrese primer número</label>
+      <input type="text" id="num1" placeholder="escriba">
+    </div>
+
+    <div class="field">
+      <label for="operacion">Operación</label>
+      <select id="operacion">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="num2">ingrese segundo número</label>
+      <input type="text" id="num2" placeholder="escriba">
+    </div>
+
+    <button onclick="calcular()">Calcular</button>
+  </div>
+
+  <div id="resultado">tan tan tannnnn resulatdo</div>
+
+  <h3>historial</h3>
+  <ul id="historial"></ul>
+
+  <script>
+    function calcular() {
+      const n1 = parseFloat(document.getElementById('num1').value);
+      const n2 = parseFloat(document.getElementById('num2').value);
+      const operacion = document.getElementById('operacion').value;
+      
+      const divResultado = document.getElementById('resultado');
+      const listaHistorial = document.getElementById('historial');
+
+      if (isNaN(n1) || isNaN(n2)) {
+        alert('Por favor ingresa ambos números.');
+        return;
+      }
+
+      let res = 0;
+
+      switch (operacion) {
+        case '+':
+          res = n1 + n2;
+          break;
+        case '-':
+          res = n1 - n2;
+          break;
+        case '*':
+          res = n1 * n2;
+          break;
+        case '/':
+          if (n2 === 0) {
+            alert('No se puede dividir entre cero.');
+            return;
+          }
+          res = n1 / n2;
+          break;
+      }
+
+      divResultado.innerText = `El Resultado es: ${res}`;
+
+      const nuevoElemento = document.createElement('li');
+      nuevoElemento.textContent = `${n1} ${operacion} ${n2} = ${res}`;
+      listaHistorial.appendChild(nuevoElemento);
+    }
+  </script>
+
+</body>
+</html>
