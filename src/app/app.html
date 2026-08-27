@@ -1,0 +1,22 @@
+<div class="container">
+  <header class="header">
+    <h1>🛸 Episodios de Rick y Morty</h1>
+  </header>
+
+  @if (loading()) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Cargando dimensión...</p>
+    </div>
+  } @else {
+    <div class="grid">
+      @for (ep of episodes(); track ep.id) {
+        <div class="card">
+          <span class="badge">{{ ep.episode }}</span>
+          <h3>{{ ep.name || 'Sin título' }}</h3>
+          <p class="date">📅 {{ ep.air_date }}</p>
+        </div>
+      }
+    </div>
+  }
+</div>
