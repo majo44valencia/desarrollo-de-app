@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PokéScan</string>
+    <string name="title_activity_main">PokéScan</string>
+    <string name="package_name">com.pokescan.app</string>
+    <string name="custom_url_scheme">com.pokescan.app</string>
+</resources>

@@ -1,0 +1,71 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="rojo">
+    <ion-title>PokéScan</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" aria-label="Cerrar sesión">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <section class="hero">
+    <p class="saludo">¡Hola, <b>{{ user()?.nombre }}</b>!</p>
+    <p class="hint">Apunta la cámara a la imagen del Pokémon</p>
+
+    <button class="scan-btn" (click)="escanear()" aria-label="Escanear Pokémon">
+      <span class="ring"></span>
+      <span class="ball"><span class="center"></span></span>
+    </button>
+    <p class="scan-label">ESCANEAR</p>
+
+    <ion-button fill="clear" class="galeria" (click)="escanear(true)">
+      <ion-icon slot="start" name="images-outline"></ion-icon>
+      Elegir foto de la galería
+    </ion-button>
+  </section>
+
+  <section class="bloque">
+    <ion-searchbar
+      placeholder="Buscar por nombre o número"
+      [debounce]="200"
+      (ionInput)="busqueda.set($any($event).detail.value ?? '')"
+    ></ion-searchbar>
+
+    @if (busqueda()) {
+      <div class="grid">
+        @for (p of resultados(); track p.id) {
+          <a class="poke-card" [routerLink]="['/pokemon', p.id]">
+            <img [src]="p.imagen" [alt]="p.nombre" loading="lazy" />
+            <span class="num">{{ numero(p.id) }}</span>
+            <span class="nombre">{{ p.nombre }}</span>
+          </a>
+        } @empty {
+          <p class="vacio">No se encontró ningún Pokémon.</p>
+        }
+      </div>
+    } @else {
+      <div class="titulo-bloque">
+        <h2>Mis escaneos</h2>
+        @if (historial.escaneos().length) {
+          <ion-button fill="clear" size="small" color="medium" (click)="borrarHistorial()" aria-label="Borrar historial">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        }
+      </div>
+
+      <div class="grid">
+        @for (p of historial.escaneos(); track p.id) {
+          <a class="poke-card" [routerLink]="['/pokemon', p.id]">
+            <img [src]="p.imagen" [alt]="p.nombre" loading="lazy" />
+            <span class="num">{{ numero(p.id) }}</span>
+            <span class="nombre">{{ p.nombre }}</span>
+          </a>
+        } @empty {
+          <p class="vacio">Todavía no has escaneado ningún Pokémon. ¡Toca la Pokébola para empezar!</p>
+        }
+      </div>
+    }
+  </section>
+</ion-content>

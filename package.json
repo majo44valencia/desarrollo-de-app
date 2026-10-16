@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@emailjs/browser": "^5.0.3",
+    "crypto-js": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2"
+  }
+}

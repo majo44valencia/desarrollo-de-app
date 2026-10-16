@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar [style.--background]="color()" style="--color: #fff">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Volver"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (pokemon.isLoading()) {
+    <div class="centro"><ion-spinner name="crescent"></ion-spinner></div>
+  } @else if (pokemon.error()) {
+    <div class="centro">
+      <p>No se pudo cargar la información. Revisa tu conexión a internet.</p>
+      <ion-button (click)="pokemon.reload()">Reintentar</ion-button>
+    </div>
+  } @else if (pokemon.value(); as p) {
+    <section class="top" [style.background]="color()">
+      @if (escaneado()) {
+        <span class="badge">¡Pokémon identificado!</span>
+      }
+      <span class="num">{{ numero(p.id) }}</span>
+      <h1>{{ p.nombre }}</h1>
+      <p class="categoria">{{ p.categoria }}</p>
+      <div class="tipos">
+        @for (t of p.tipos; track t) {
+          <span class="tipo" [style.background]="tipos[t]?.color">{{ tipos[t]?.es ?? t }}</span>
+        }
+      </div>
+      <img [src]="p.imagen" [alt]="p.nombre" class="arte" />
+    </section>
+
+    <section class="info">
+      @if (p.descripcion) {
+        <p class="descripcion">{{ p.descripcion }}</p>
+      }
+
+      <div class="medidas">
+        <div><b>{{ p.altura }} m</b><span>Altura</span></div>
+        <div><b>{{ p.peso }} kg</b><span>Peso</span></div>
+      </div>
+
+      <h2>Habilidades</h2>
+      <div class="habilidades">
+        @for (h of p.habilidades; track h) {
+          <span>{{ h.replace('-', ' ') }}</span>
+        }
+      </div>
+
+      <h2>Estadísticas base</h2>
+      @for (s of p.stats; track s.nombre) {
+        <div class="stat">
+          <span class="stat-nombre">{{ statsEs[s.nombre] ?? s.nombre }}</span>
+          <span class="stat-valor">{{ s.valor }}</span>
+          <div class="barra"><div [style.width.%]="porcentaje(s.valor)" [style.background]="color()"></div></div>
+        </div>
+      }
+    </section>
+  }
+</ion-content>

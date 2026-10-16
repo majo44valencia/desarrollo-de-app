@@ -1,0 +1,121 @@
+.auth {
+  --background: radial-gradient(circle at 50% -10%, #ff5a5f 0%, #e3350d 45%, #8f1d0a 100%);
+}
+
+.auth-wrap {
+  min-height: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 48px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+}
+
+h1 {
+  margin: 16px 0 4px;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+
+  b {
+    color: #ffcb05;
+  }
+}
+
+.sub {
+  margin: 0 0 28px;
+  opacity: 0.9;
+}
+
+.card {
+  width: 100%;
+  background: var(--ion-background-color, #fff);
+  color: var(--ion-text-color, #222);
+  border-radius: 24px;
+  padding: 24px 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  ion-icon[slot='start'] {
+    margin-right: 8px;
+    color: var(--ion-color-medium);
+  }
+
+  ion-button {
+    --background: #e3350d;
+    --background-activated: #b52a0a;
+    margin-top: 6px;
+    height: 48px;
+    font-weight: 700;
+  }
+}
+
+.error {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.switch {
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: 0.95rem;
+
+  a {
+    color: #e3350d;
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+.pokeball-logo {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  border: 5px solid #222;
+  background: linear-gradient(#fff 0 0) bottom / 100% 50% no-repeat, #e3350d;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  animation: wobble 2.4s ease-in-out infinite;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 5px;
+    margin-top: -2.5px;
+    background: #222;
+  }
+
+  span {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #fff;
+    border: 5px solid #222;
+  }
+}
+
+@keyframes wobble {
+  0%, 60%, 100% { transform: rotate(0); }
+  70% { transform: rotate(-14deg); }
+  80% { transform: rotate(12deg); }
+  90% { transform: rotate(-6deg); }
+}
