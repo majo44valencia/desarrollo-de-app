@@ -1,0 +1,34 @@
+<div class="ar-container" #containerElement>
+
+  <!-- Cámara de fondo -->
+  <video #videoElement class="camera-video" autoplay playsinline muted></video>
+
+  <!-- Renderizador 3D -->
+  <canvas #canvasElement class="three-canvas"></canvas>
+
+  <!-- Botón cerrar -->
+  <button type="button" class="close-btn" (click)="onClose()">✕</button>
+
+  <!-- Estado de la app -->
+  <div class="status-overlay">
+    <p *ngIf="!isAnchored">
+      📍 Coloca el sofá en el lugar deseado y presiona <b>"Fijar Sofá"</b>.
+    </p>
+    <p *ngIf="isAnchored" class="success">
+      🔒 <b>Sofá anclado.</b><br>
+      Voltea el celular para quitarlo de vista.
+    </p>
+  </div>
+
+  <!-- Botones de Acción -->
+  <div class="controls-overlay">
+    <button *ngIf="!isAnchored" type="button" class="btn btn-primary" (click)="fixSofaInPlace($event)">
+      📌 Fijar Sofá Aquí
+    </button>
+
+    <button *ngIf="isAnchored" type="button" class="btn btn-warning" (click)="unfixSofa($event)">
+      🔓 Mover Sofá de Nuevo
+    </button>
+  </div>
+
+</div>
