@@ -1,0 +1,110 @@
+.login-content {
+  --background: #0f172a;
+}
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: #1e293b;
+  border-radius: 20px;
+  padding: 28px 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.logo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .correcaminos-img {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 8px;
+  }
+
+  .app-title {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin: 0;
+  }
+
+  .beep-badge {
+    margin-top: 6px;
+    background: #ff9800;
+    color: #000000;
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input-group {
+  text-align: left;
+
+  label {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    display: block;
+  }
+}
+
+.custom-input {
+  --background: #334155;
+  --color: #ffffff;
+  --placeholder-color: #64748b;
+  --border-radius: 10px;
+  border-radius: 10px;
+}
+
+.btn-login {
+  --background: #ff5722;
+  --background-activated: #e64a19;
+  --border-radius: 12px;
+  --color: #ffffff;
+  font-weight: 700;
+  height: 48px;
+  margin-top: 8px;
+}
+
+.register-footer {
+  margin-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+
+  p {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .btn-link {
+    --color: #ff9800;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}

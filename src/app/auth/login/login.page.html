@@ -1,0 +1,53 @@
+<ion-content class="login-content">
+  <div class="login-wrapper">
+    <div class="login-card">
+      
+      <div class="logo-box">
+        <!-- Logo cargado desde la carpeta local assets -->
+        <img src="/assets/correcaminos.png" alt="Correcaminos" class="correcaminos-img" />
+        <h1 class="app-title">CORRE CAMINOS</h1>
+        <span class="beep-badge">¡BEEP! ¡BEEP!</span>
+      </div>
+
+      <form (ngSubmit)="onLogin()" class="login-form">
+        <div class="input-group">
+          <label>Correo Electrónico</label>
+          <ion-item lines="none" class="custom-input">
+            <ion-input 
+              type="email" 
+              [(ngModel)]="email" 
+              name="email" 
+              placeholder="usuario@correo.com"
+              required>
+            </ion-input>
+          </ion-item>
+        </div>
+
+        <div class="input-group">
+          <label>Contraseña</label>
+          <ion-item lines="none" class="custom-input">
+            <ion-input 
+              type="password" 
+              [(ngModel)]="password" 
+              name="password" 
+              placeholder="••••••••"
+              required>
+            </ion-input>
+          </ion-item>
+        </div>
+
+        <ion-button expand="block" type="submit" [disabled]="loading" class="btn-login">
+          {{ loading ? 'ENVIANDO...' : 'INICIAR SESIÓN' }}
+        </ion-button>
+      </form>
+
+      <div class="register-footer">
+        <p>¿No tienes cuenta todavía?</p>
+        <ion-button fill="clear" routerLink="/register" class="btn-link">
+          Crear una cuenta aquí
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
+</ion-content>
