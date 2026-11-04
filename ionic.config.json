@@ -1,0 +1,7 @@
+{
+  "name": "corre-caminos-clean",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
