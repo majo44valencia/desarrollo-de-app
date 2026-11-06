@@ -1,0 +1,85 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Corre Caminos - Pasajero</ion-title>
+    <ion-button slot="end" fill="clear" color="warning" (click)="logout()">Salir</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-dark">
+  
+  <div id="map-passenger" class="map-container"></div>
+
+  <div class="ion-padding float-container">
+    <div class="header-banner">
+      <h2>¡Hola, {{ userName }}! 👋</h2>
+      <p>¿A dónde deseas viajar hoy?</p>
+    </div>
+
+    <!-- Formulario para ingresar origen/destino (Siempre visible para solicitar o modificar) -->
+    @if (!activeTrip) {
+      <ion-card class="custom-card">
+        <ion-card-header>
+          <ion-card-title color="warning">Solicitar Viaje</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item lines="none" class="custom-input">
+            <ion-label position="stacked">Origen</ion-label>
+            <ion-input [(ngModel)]="origin" (ionChange)="updateRouteOnMap()" placeholder="Ej. Brisas Neiva"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="custom-input">
+            <ion-label position="stacked">Destino</ion-label>
+            <ion-input [(ngModel)]="destination" (ionChange)="updateRouteOnMap()" placeholder="Ej. Centro Neiva"></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" (click)="requestTrip()" class="btn-submit ion-margin-top">
+            SOLICITAR CONDUCTOR
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    }
+
+    <!-- Estado de la solicitud activa -->
+    @if (activeTrip) {
+      <ion-card class="trip-card">
+        <ion-card-content class="ion-text-center">
+          
+          @if (activeTrip.status === 'PENDIENTE') {
+            <ion-badge color="warning">BUSCANDO CONDUCTOR...</ion-badge>
+            <h3>Buscando a alguien para tu ruta</h3>
+            <p>📍 {{ activeTrip.origin }} ➔ {{ activeTrip.destination }}</p>
+
+            <div class="info-row">
+              <p>📏 Distancia estimada: <strong>{{ activeTrip.distanceKm }} km</strong></p>
+              <h2 class="price-text">Costo ($1.000/km): ${{ activeTrip.estimatedPrice }}</h2>
+            </div>
+
+            <!-- Botón para cancelar la búsqueda -->
+            <ion-button expand="block" color="danger" fill="outline" class="ion-margin-top" (click)="cancelTrip()">
+              CANCELAR SOLICITUD
+            </ion-button>
+          }
+
+          @if (activeTrip.status === 'ACEPTADO') {
+            <ion-badge color="success">¡CONDUCTOR EN CAMINO!</ion-badge>
+            <h3>Tu conductora {{ activeTrip.driverName }} ha aceptado el viaje 🚘</h3>
+            <p>Entrégale este PIN a tu conductora al subirte:</p>
+            
+            <div class="pin-box">
+              <span>PIN: {{ activeTrip.pin }}</span>
+            </div>
+
+            <p class="price-text">Total a pagar: ${{ activeTrip.estimatedPrice }} ({{ activeTrip.distanceKm }} km)</p>
+          }
+
+          @if (activeTrip.status === 'EN_PROCESO') {
+            <ion-badge color="tertiary">EN VIAJE</ion-badge>
+            <h3>¡Viaje en curso hacia {{ activeTrip.destination }}! 🏁</h3>
+            <p>Conductora: {{ activeTrip.driverName }}</p>
+          }
+
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
+</ion-content>

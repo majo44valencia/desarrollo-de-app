@@ -1,0 +1,74 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Corre Caminos - Conductora</ion-title>
+    <ion-button slot="end" fill="clear" color="warning" (click)="logout()">Salir</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-dark">
+  
+  <!-- MAPA INTERACTIVO DEL CONDUCTOR -->
+  <div id="map-driver" class="map-container"></div>
+
+  <div class="ion-padding float-container">
+    <div class="header-banner">
+      <h2>¡Hola, {{ driverName }}! 🚘</h2>
+      <p>Solicitudes de viajes en tiempo real:</p>
+    </div>
+
+    @if (incomingRequests.length === 0) {
+      <ion-card class="trip-card ion-text-center ion-padding">
+        <p>No hay solicitudes pendientes en este momento.</p>
+      </ion-card>
+    }
+
+    @for (req of incomingRequests; track req.id) {
+      <ion-card class="trip-card">
+        <ion-card-content>
+          <div class="trip-header">
+            <strong>👤 Pasajera: {{ req.passengerName }}</strong>
+            <ion-badge [color]="req.status === 'ACEPTADO' ? 'success' : (req.status === 'EN_PROCESO' ? 'tertiary' : 'warning')">
+              {{ req.status }}
+            </ion-badge>
+          </div>
+
+          <p>📍 <strong>Origen:</strong> {{ req.origin }}</p>
+          <p>🏁 <strong>Destino:</strong> {{ req.destination }}</p>
+          <p>📏 <strong>Distancia:</strong> {{ req.distanceKm }} km</p>
+          <h3 class="price-text">💵 Ganancia: ${{ req.estimatedPrice }}</h3>
+
+          <!-- Botón Aceptar Solicitud -->
+          @if (req.status === 'PENDIENTE') {
+            <ion-button expand="block" color="warning" class="ion-margin-top" (click)="acceptTrip(req.id)">
+              ACEPTAR VIAJE DE {{ req.passengerName.toUpperCase() }}
+            </ion-button>
+          }
+
+          <!-- Formulario para ingresar el PIN -->
+          @if (req.status === 'ACEPTADO') {
+            <div class="pin-verification ion-margin-top">
+              <p>Ingresa el PIN que te entregue {{ req.passengerName }}:</p>
+              
+              <ion-item lines="none" class="custom-input">
+                <ion-input type="number" [(ngModel)]="inputPin" placeholder="Ej. 4821"></ion-input>
+              </ion-item>
+
+              <ion-button expand="block" color="success" (click)="verifyAndStartTrip(req.id)">
+                VALIDAR PIN E INICIAR VIAJE
+              </ion-button>
+            </div>
+          }
+
+          @if (req.status === 'EN_PROCESO') {
+            <ion-badge color="tertiary" class="ion-margin-top full-width-badge">
+              VIAJE EN CURSO A {{ req.destination.toUpperCase() }}...
+            </ion-badge>
+          }
+        </ion-card-content>
+      </ion-card>
+    }
+    <ion-item lines="none" class="custom-input">
+  <ion-input type="text" [(ngModel)]="inputPin" placeholder="Ej. 4821"></ion-input>
+</ion-item>
+  </div>
+</ion-content>

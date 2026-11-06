@@ -1,53 +1,69 @@
-<ion-content class="login-content">
-  <div class="login-wrapper">
-    <div class="login-card">
-      
-      <div class="logo-box">
-        <!-- Logo cargado desde la carpeta local assets -->
-        <img src="/assets/correcaminos.png" alt="Correcaminos" class="correcaminos-img" />
-        <h1 class="app-title">CORRE CAMINOS</h1>
-        <span class="beep-badge">¡BEEP! ¡BEEP!</span>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Corre Caminos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="register-content ion-padding">
+  <div class="register-container">
+    
+    <!-- Emblema de marca en SVG -->
+    <div class="brand-header ion-text-center">
+      <div class="logo-icon-wrapper">
+        <svg viewBox="0 0 100 100" width="70" height="70">
+          <circle cx="50" cy="50" r="45" fill="#ffeb3b" stroke="#ff9800" stroke-width="4"/>
+          <path d="M55 15 L25 55 L48 55 L40 85 L75 45 L52 45 Z" fill="#ff9800" />
+        </svg>
       </div>
-
-      <form (ngSubmit)="onLogin()" class="login-form">
-        <div class="input-group">
-          <label>Correo Electrónico</label>
-          <ion-item lines="none" class="custom-input">
-            <ion-input 
-              type="email" 
-              [(ngModel)]="email" 
-              name="email" 
-              placeholder="usuario@correo.com"
-              required>
-            </ion-input>
-          </ion-item>
-        </div>
-
-        <div class="input-group">
-          <label>Contraseña</label>
-          <ion-item lines="none" class="custom-input">
-            <ion-input 
-              type="password" 
-              [(ngModel)]="password" 
-              name="password" 
-              placeholder="••••••••"
-              required>
-            </ion-input>
-          </ion-item>
-        </div>
-
-        <ion-button expand="block" type="submit" [disabled]="loading" class="btn-login">
-          {{ loading ? 'ENVIANDO...' : 'INICIAR SESIÓN' }}
-        </ion-button>
-      </form>
-
-      <div class="register-footer">
-        <p>¿No tienes cuenta todavía?</p>
-        <ion-button fill="clear" routerLink="/register" class="btn-link">
-          Crear una cuenta aquí
-        </ion-button>
-      </div>
-
+      <h2>Iniciar Sesión</h2>
+      <p>Ingresa tus credenciales para acceder a la plataforma.</p>
     </div>
+
+    <!-- Formulario -->
+    <div class="form-card">
+      <form (ngSubmit)="onLogin()">
+        
+        <ion-item lines="none" class="custom-input">
+          <ion-label position="stacked">Correo electrónico</ion-label>
+          <ion-input 
+            type="email" 
+            [(ngModel)]="email" 
+            name="email" 
+            placeholder="usuario@correo.com" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-input">
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input 
+            type="password" 
+            [(ngModel)]="password" 
+            name="password" 
+            placeholder="••••••••" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          class="btn-submit ion-margin-top" 
+          [disabled]="loading">
+          @if (!loading) {
+            <span>INGRESAR</span>
+          } @else {
+            <span>VERIFICANDO...</span>
+          }
+        </ion-button>
+
+      </form>
+    </div>
+
+    <!-- Enlace a Registro -->
+    <div class="footer-link ion-text-center ion-margin-top">
+      <p>¿No tienes una cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+    </div>
+
   </div>
 </ion-content>

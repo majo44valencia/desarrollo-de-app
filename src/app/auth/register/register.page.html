@@ -1,67 +1,140 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar class="custom-toolbar">
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>CREAR CUENTA</ion-title>
+    <ion-title>Únete a Corre Caminos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="register-content ion-padding">
-  <div class="register-card">
+  <div class="register-container">
     
-    <h2>¡Únete a la carrera!</h2>
-    <p class="subtitle">Selecciona tu perfil y completa tus datos</p>
+    <!-- Banner de marca con colores Looney Tunes (Naranja y Amarillo) -->
+    <div class="brand-header ion-text-center">
+      <div class="logo-icon-wrapper">
+        <svg viewBox="0 0 100 100" width="70" height="70">
+          <!-- Círculo de fondo amarillo radiante -->
+          <circle cx="50" cy="50" r="45" fill="#ffeb3b" stroke="#ff9800" stroke-width="4"/>
+          <!-- Icono de velocidad/rayo naranja Looney Tunes -->
+          <path d="M55 15 L25 55 L48 55 L40 85 L75 45 L52 45 Z" fill="#ff9800" />
+        </svg>
+      </div>
+      <h2>¡Crea tu Cuenta!</h2>
+      <p>Selecciona tu rol y completa la información para empezar a viajar.</p>
+    </div>
 
-    <form (ngSubmit)="onRegister()">
-      
+    <!-- Tarjeta del Formulario -->
+    <div class="form-card">
+
       <!-- Selector de Rol -->
-      <ion-item lines="full" class="custom-item">
-        <ion-label position="stacked">Tipo de Usuario</ion-label>
-        <ion-select [(ngModel)]="role" name="role" interface="popover">
-          <ion-select-option value="passenger">Pasajero (Cliente)</ion-select-option>
-          <ion-select-option value="driver">Conductor</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item lines="full" class="custom-item">
-        <ion-label position="floating">Nombre Completo</ion-label>
-        <ion-input type="text" [(ngModel)]="name" name="name" required></ion-input>
-      </ion-item>
-
-      <ion-item lines="full" class="custom-item">
-        <ion-label position="floating">Correo electrónico</ion-label>
-        <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
-      </ion-item>
-
-      <ion-item lines="full" class="custom-item">
-        <ion-label position="floating">Teléfono</ion-label>
-        <ion-input type="tel" [(ngModel)]="phone" name="phone" required></ion-input>
-      </ion-item>
-
-      <ion-item lines="full" class="custom-item">
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
-      </ion-item>
-
-      <!-- Campos extras si es conductor -->
-      <div *ngIf="role === 'driver'" class="driver-fields">
-        <ion-item lines="full" class="custom-item">
-          <ion-label position="floating">Placa del Vehículo</ion-label>
-          <ion-input type="text" [(ngModel)]="plate" name="plate"></ion-input>
-        </ion-item>
-        <ion-item lines="full" class="custom-item">
-          <ion-label position="floating">Modelo/Marca del Vehículo</ion-label>
-          <ion-input type="text" [(ngModel)]="vehicle_model" name="vehicle_model"></ion-input>
-        </ion-item>
+      <div class="role-selector">
+        <label class="section-label">¿Cómo deseas usar la app?</label>
+        <ion-segment [(ngModel)]="role" mode="ios" class="custom-segment">
+          <ion-segment-button value="passenger">
+            <ion-label>Pasajero</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="driver">
+            <ion-label>Conductor</ion-label>
+          </ion-segment-button>
+        </ion-segment>
       </div>
 
-      <div class="ion-margin-top">
-        <ion-button expand="block" type="submit" [disabled]="loading" class="btn-register">
-          {{ loading ? 'REGISTRANDO...' : 'CREAR MI CUENTA' }}
+      <!-- Formulario principal -->
+      <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+        
+        <ion-item lines="none" class="custom-input">
+          <ion-label position="stacked">Nombre completo</ion-label>
+          <ion-input 
+            type="text" 
+            [(ngModel)]="name" 
+            name="name" 
+            placeholder="Ej. Bugs Bunny" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-input">
+          <ion-label position="stacked">Correo electrónico</ion-label>
+          <ion-input 
+            type="email" 
+            [(ngModel)]="email" 
+            name="email" 
+            placeholder="ejemplo@correo.com" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-input">
+          <ion-label position="stacked">Teléfono</ion-label>
+          <ion-input 
+            type="tel" 
+            [(ngModel)]="phone" 
+            name="phone" 
+            placeholder="300 123 4567" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-input">
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input 
+            type="password" 
+            [(ngModel)]="password" 
+            name="password" 
+            placeholder="••••••••" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <!-- Campos condicionales para el Conductor -->
+        @if (role === 'driver') {
+          <div class="driver-fields">
+            <p class="driver-subtitle">Datos del Vehículo</p>
+            
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked">Placa del vehículo</ion-label>
+              <ion-input 
+                type="text" 
+                [(ngModel)]="plate" 
+                name="plate" 
+                placeholder="ABC-123" 
+                style="text-transform: uppercase;">
+              </ion-input>
+            </ion-item>
+
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked">Modelo / Referencia</ion-label>
+              <ion-input 
+                type="text" 
+                [(ngModel)]="vehicle_model" 
+                name="vehicle_model" 
+                placeholder="Ej. Chevrolet Spark 2020">
+              </ion-input>
+            </ion-item>
+          </div>
+        }
+
+        <!-- Botón de Registro -->
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          class="btn-submit ion-margin-top" 
+          [disabled]="loading">
+          @if (!loading) {
+            <span>¡REGISTRARME AHORA!</span>
+          } @else {
+            <span>PROCESANDO...</span>
+          }
         </ion-button>
-      </div>
 
-    </form>
+      </form>
+    </div>
+
+    <!-- Enlace a Login -->
+    <div class="footer-link ion-text-center ion-margin-top">
+      <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+    </div>
+
   </div>
 </ion-content>
